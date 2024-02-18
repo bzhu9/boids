@@ -13,6 +13,8 @@ function randomSpeed() {
 }
 DRAW_TRAIL = false;
 COLOR_ON = true;
+BACKGROUND_TOGGLE = (window.matchMedia && window.matchMedia('prefers-color-scheme: dark').matches);
+
 // Add an event listener to create a boid when the canvas is clicked
 canvas.addEventListener('click', createBoid, false);
 
@@ -26,6 +28,9 @@ document.addEventListener('keydown', function(event) {
   }
   if (event.key === 'r') {
     boids = [];
+  }
+  if (event.key === 'b') {
+    BACKGROUND_TOGGLE = !BACKGROUND_TOGGLE;
   }
 });
 
@@ -224,7 +229,7 @@ class Boid {
     if (COLOR_ON)
       ctx.fillStyle = this.color;
     else
-      ctx.fillStyle = "#000000";
+      ctx.fillStyle = !BACKGROUND_TOGGLE ? "#000000" : "#ffffff";
     ctx.beginPath();
     ctx.moveTo(this.x, this.y);
     ctx.lineTo(this.x - 7, this.y + 2.8);
@@ -237,7 +242,7 @@ class Boid {
       if (COLOR_ON)
         ctx.strokeStyle = this.color + "66";
       else
-        ctx.strokeStyle = "#00000066";
+        ctx.strokeStyle = !BACKGROUND_TOGGLE ? "#00000066" : "#ffffff66";
       ctx.beginPath();
       ctx.moveTo(this.history[0][0], this.history[0][1]);
       for (const point of this.history) {
@@ -264,6 +269,8 @@ function initBoids() {
 function animate() {
   // Clear the canvas
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+  canvas.style.backgroundColor = BACKGROUND_TOGGLE ? "#000000" : "#ffffff";
 
   // Update and draw each boid
   for (const boid of boids) {
