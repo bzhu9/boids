@@ -8,7 +8,20 @@
     </head>
     <body>
         <canvas id="boids" style="display: block;"></canvas>
-        <script src="boids.js"></script>
+        <div id="modal" class="modal" style="display: block; font-family: 'Arial', sans-serif; font-weight: 300;">
+            <div class="modal-content">
+                <h1>Welcome to Boids!</h1>
+
+                <p>Press <b>b</b> to toggle background</p>
+                <p>Press <b>c</b> to toggle color</p>
+                <p>Press <b>t</b> to toggle tails</p>
+                <p>Press <b>r</b> to reset the canvas</p>
         
+                <br>
+                <h3>Click to spawn a group of boids!</h3>
+            </div>
+        </div>
+        <script src="boids.js"></script>
+        <script src="modal.js"></script>
     </body>
 </html>

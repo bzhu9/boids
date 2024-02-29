@@ -13,7 +13,7 @@ function randomSpeed() {
 }
 DRAW_TRAIL = false;
 COLOR_ON = true;
-BACKGROUND_TOGGLE = (window.matchMedia && window.matchMedia('prefers-color-scheme: dark').matches);
+BACKGROUND_TOGGLE = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
 // Add an event listener to create a boid when the canvas is clicked
 canvas.addEventListener('click', createBoid, false);
@@ -239,13 +239,16 @@ class Boid {
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     
     if (DRAW_TRAIL) {
+      var boldness = 66;
       if (COLOR_ON)
-        ctx.strokeStyle = this.color + "66";
+        ctx.strokeStyle = this.color;
       else
-        ctx.strokeStyle = !BACKGROUND_TOGGLE ? "#00000066" : "#ffffff66";
+        ctx.strokeStyle = !BACKGROUND_TOGGLE ? "#000000" : "#ffffff";
       ctx.beginPath();
       ctx.moveTo(this.history[0][0], this.history[0][1]);
       for (const point of this.history) {
+        ctx.strokeStyle = ctx.strokeStyle + boldness.toString(16);
+        boldness -= 2;
         ctx.lineTo(point[0], point[1]);
       }
       ctx.stroke();
